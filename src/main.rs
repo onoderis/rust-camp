@@ -4,8 +4,70 @@ use core::fmt;
 use std::fmt::{Display, Formatter};
 
 fn main() {
-    tuples();
+    structures();
 }
+
+
+// 3.1. Structures
+struct Point {
+    x: f32,
+    y: f32,
+}
+
+impl Display for Point {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        write!(f, "(x: {}, y: {})", self.x, self.y)
+    }
+}
+
+struct Rectangle {
+    p1: Point,
+    p2: Point,
+}
+
+impl Display for Rectangle {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        write!(f, "{}\n{}", self.p1, self.p2)
+    }
+}
+
+fn rect_area(rect: Rectangle) -> f32 {
+    let mut width = rect.p1.x - rect.p2.x;
+    if width < 0.0 {
+        width = width * -1.0;
+    };
+
+
+    let mut height = rect.p1.y - rect.p2.y;
+    if height < 0.0 {
+        height = height * -1.0;
+    };
+
+    width * height
+}
+
+fn square(bottom_left_point: Point, width: f32) -> Rectangle {
+    let top_right_x = bottom_left_point.x + width;
+    let top_right_y = bottom_left_point.y + width;
+
+    Rectangle {
+        p1: bottom_left_point,
+        p2: Point { x: top_right_x, y: top_right_y },
+    }
+}
+
+fn structures() {
+    let point: Point = Point { x: 1.0, y: 1.0 };
+    let rectangle = Rectangle {
+        p1: Point { x: 3.0, y: 3.0 },
+        p2: point,
+    };
+    println!("rect_area: {}", rect_area(rectangle));
+
+    let point2: Point = Point { x: 1.0, y: 1.0 };
+    println!("square:\n{}", square(point2, 3.0));
+}
+
 
 // 2.2. Tuples
 struct Matrix(f32, f32, f32, f32);
