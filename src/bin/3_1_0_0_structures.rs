@@ -37,17 +37,8 @@ impl Display for Rectangle {
 }
 
 fn rect_area(rect: Rectangle) -> f32 {
-    let mut width = rect.p1.x - rect.p2.x;
-    if width < 0.0 {
-        width = width * -1.0;
-    };
-
-
-    let mut height = rect.p1.y - rect.p2.y;
-    if height < 0.0 {
-        height = height * -1.0;
-    };
-
+    let width = f32::abs(rect.p1.x - rect.p2.x);
+    let height = f32::abs(rect.p1.y - rect.p2.y);
     width * height
 }
 
